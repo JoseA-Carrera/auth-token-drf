@@ -19,15 +19,33 @@ from rest_framework.authentication import TokenAuthentication
 
 class PollsViewSet(generics.ListCreateAPIView):
   queryset = Poll.objects.all()
-  permission_classes = [permissions.IsAuthenticated]
   serializer_class = PollsSerializer
+  permission_classes = [permissions.IsAuthenticated]
   authentication_class = (TokenAuthentication,)
-  
+
+class PollDeleteView(generics.RetrieveDestroyAPIView):
+    queryset = Poll.objects.all()
+    serializer_class = PollsSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_class = (TokenAuthentication,) 
+    
+
+class PollUpdateView(generics.RetrieveUpdateAPIView):
+    queryset = Poll.objects.all()
+    serializer_class = PollsSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_class = (TokenAuthentication,)
+
+class PollDetailView(generics.RetrieveAPIView):
+    queryset = Poll.objects.all()
+    serializer_class = PollsSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_class = (TokenAuthentication,)
 
 class Login(FormView):
     template_name = "login.html"
     form_class = AuthenticationForm
-    success_url = reverse_lazy('api:polls_list')
+    success_url = reverse_lazy('api:poll-list')
 
     @method_decorator(csrf_protect)
     @method_decorator(never_cache)

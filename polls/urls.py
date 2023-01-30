@@ -2,12 +2,11 @@ from rest_framework import routers
 from . import views
 from django.urls import path
 
-# router = routers.DefaultRouter()
-
-# router.register('api/polls', views.PollsViewSet, 'polls')
-
-# urlpatterns = router.urls
 
 urlpatterns =  [
-    path('', views.PollsViewSet.as_view(), name='polls_list'),
+    path('poll/', views.PollsViewSet.as_view(), name='poll-list'),
+    path('poll/<int:pk>/delete/', views.PollDeleteView.as_view(), name='poll-delete'),
+    path('poll/<int:pk>/update/', views.PollUpdateView.as_view(), name='poll-update'),
+    path('poll/<int:pk>/', views.PollDetailView.as_view(), name='poll-detail')
+
 ]
